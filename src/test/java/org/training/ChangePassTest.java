@@ -16,7 +16,6 @@ import java.util.NoSuchElementException;
 public class ChangePassTest {
 
    WebDriver driver;
-
    @Before
    public void startDriver() {
       driver = new FirefoxDriver();
