@@ -34,3 +34,18 @@
     </plugins>
   </build>
 </project>
+<scurity.query.authen>
+<![CDATA[
+select u.USER_LOGIN as username, u.USER_PASSWORD as password, case when u.USER_STATUS = 'E' then 1 else 0 end as enabled 
+from ${jdbc.default.schema}.NBTC_MS_USER u 
+where u.USER_LOGIN = ? and u.USER_STATUS = 'E' and u.IS_DELETED = 0
+]]>
+</scurity.query.authen>
+<scurity.query.authorize>
+<![CDATA[
+select u.USER_LOGIN as username, map.ROLE_CODE as authority 
+from ${jdbc.default.schema}.NBTC_MS_USER u 
+inner join ${jdbc.default.schema}.NBTC_TR_USER_MAPPING map on map.USER_LOGIN = u.USER_LOGIN 
+where u.USER_LOGIN = ? and u.USER_STATUS = 'E' and u.IS_DELETED = 0 and map.IS_DELETED = 0
+]]>
+</scurity.query.authorize>
